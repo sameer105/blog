@@ -78,8 +78,13 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog_development',
+        'USER': 'sameer',
+        'PASSWORD': '9837665096',
+        'HOST': 'localhost',
+        'PORT': '5432'
     }
 }
 
@@ -135,4 +140,14 @@ STATICFILES_DIRS = (
 )
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+#SMTP Configuration
+#EMAIL_BACKEND = 'django.code.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'anchalbhati171@gmail.com'
+EMAIL_HOST_PASSWORD = 'Sid@1204'
+
+
 
