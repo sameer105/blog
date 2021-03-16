@@ -3,9 +3,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import Postform, Editform, CommentForm
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseRedirect
-# Create your views here.
-#def home(request):
- #   return render(request,"home.html",{})
 from .models import Post, Category, Comment
 
 def LikeView(request, pk):
@@ -37,7 +34,6 @@ class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     cats = Category.objects.all()
-    #ordering = ['-post_date']
     ordering = ['id']
 
 
@@ -71,13 +67,11 @@ class AddPostView(CreateView):
     model = Post
     form_class = Postform
     template_name = 'add_post.html'
-    #fields = '__all__'
 
 class AddCommentView(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'add_comment.html'
-    #fields = '__all__'
     def form_valid(self, form):
         form.instance.post_id= self.kwargs['pk']
         return super().form_valid(form)
@@ -91,7 +85,6 @@ class UpdatePostView(UpdateView):
     model=Post
     form_class = Editform
     template_name = 'update_post.html'
-    #fields = ['title','title_tag','body']
 
 class DeletePostView(DeleteView):
     model = Post
@@ -101,6 +94,5 @@ class DeletePostView(DeleteView):
 
 class AddCategoryView(CreateView):
     model = Category
-    #form_class = Postform
     template_name = 'add_category.html'
     fields = '__all__'

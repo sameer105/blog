@@ -1,8 +1,6 @@
 from django import forms
 from .models import Post, Category, Comment
 
-#choices = [('coding', 'coding'), ('sports', 'sports'), ('Entertainment', 'Entertainment'), ('Technical', 'Technical')]
-
 
 def get_choice_list():
     choices = Category.objects.all().values_list('name')
@@ -19,7 +17,6 @@ class Postform(forms.ModelForm):
         widgets ={
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
-            #'author': forms.TextInput(attrs={'class': 'form-control', 'value': '', 'id':'elder', 'type': 'hidden'}),
             'author': forms.Select(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=get_choice_list(),attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
@@ -34,7 +31,6 @@ class Editform(forms.ModelForm):
         widgets ={
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
-            #'author': forms.Select(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
             'snippet': forms.Textarea(attrs={'class': 'form-control'}),
 
