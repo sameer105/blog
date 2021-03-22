@@ -1,14 +1,16 @@
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.urls import reverse
 from ckeditor.fields import RichTextField
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
+from ablog.tasks import send_welcome_mail
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -59,12 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         super(User, self).save(*args, **kwargs)
-        html_content = render_to_string("registration/email_body.html",{'title':'Welcome to My Blog!!!!','full_name':self.get_full_name()})
-        subject, from_email, to = 'Welcome to My Blog!!!!', settings.EMAIL_HOST_USER, self.email
-        text_content = 'This is an important message.'
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
+        send_welcome_mail.delay(self.email, self.get_full_name())
 
 
 class Category(models.Model):

@@ -5,6 +5,7 @@ from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseRedirect
 from .models import Post, Category, Comment
 
+
 def LikeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
     liked = False
@@ -96,3 +97,5 @@ class AddCategoryView(CreateView):
     model = Category
     template_name = 'add_category.html'
     fields = '__all__'
+
+
