@@ -3,7 +3,7 @@ from .models import Post, Category, Comment
 
 
 def get_choice_list():
-    choices = Category.objects.all().values_list('name')
+    choices = Category.objects.all().values_list('name', 'name')
     choice_list = []
     for item in choices:
          choice_list.append(item)
@@ -15,7 +15,7 @@ class Postform(forms.ModelForm):
         fields = ('title', 'title_tag', 'author', 'category', 'body', 'snippet', 'header_image')
 
         widgets ={
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': get_choice_list()}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.Select(attrs={'class': 'form-control'}),
             'category': forms.Select(choices=get_choice_list(),attrs={'class': 'form-control'}),

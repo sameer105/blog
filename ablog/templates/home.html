@@ -1,13 +1,12 @@
 {%extends 'base.html'%}
+
 {%block content%}
-
-
-
-<h1>Post </h1>
+<!--<div style="background-image: url('https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80');">-->
+<h1><b><i> Post </i></b></h1>
 <ul>
 
     {%for post in object_list %}
-
+<h4>
     <li><a href = "{% url 'details' post.pk %}">{{post.title}}</a> -
         <a href="{% url 'category' post.category|slugify %}"> {{ post.category }}</a>
         - {{post.author.first_name}}
@@ -18,12 +17,13 @@
                     <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
                 {% endif %}
             {% endif %}
-        </small><br>{{post.author.email}}<br>{{post.snippet}}
+        </small><br>{{post.author.email}}<br>
+        {{post.snippet}}
         <br>Created at :{{post.created_date}}
         <br>Published at :{{post.published_date}}</li>
 {% endfor %}
     </ul>
 <br>
-
+</h4>
 
 {%endblock%}

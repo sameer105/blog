@@ -1,10 +1,12 @@
 {%extends 'base.html'%}
 {%block content%}
+
 {% if category_posts %}
+
 <h1>{{ cats }} </h1>
 <ul>
 {% for post in category_posts %}
-
+<h4>
     <li><a href = "{% url 'details' post.pk %}">{{post.title}}</a> - {{post.author.first_name}}
         {{post.author.last_name}}  <small>
             {% if user.is_authenticated %}
@@ -21,7 +23,7 @@
 {% else %}
 <h2>Sorry this page doesnot exist</h2>
 {% endif %}
-
+</h4>
 
 
 
