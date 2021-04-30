@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=blog_development
+      - POSTGRES_USER=sameer
+      - POSTGRES_PASSWORD=9837665096
+
+  web:
+    build: .
+    command: /usr/local/bin/python manage.py runserver
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+  celery:
+    build: .
+    command: celery -A blog worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - db
+      - redis
+  celery-beat:
+    build: .
+    command: celery -A blog beat -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - web
+      - db
+      - redis
+
+volumes:
+  postgres_data:

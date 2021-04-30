@@ -5,8 +5,7 @@ from django.views.generic import DetailView, CreateView
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .forms import SignUpForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
-from ablog.models import Profile
-
+from ablog.models import Profile, User
 
 def signup(request):
     if request.method == 'POST':

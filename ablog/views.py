@@ -19,8 +19,6 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('details', args=[str(pk)]))
 
 
-
-
 def CategoryListView(request):
     cat_menu_list = Category.objects.all()
     return render(request, 'category_list.html', {'cat_menu_list': cat_menu_list})
@@ -78,8 +76,6 @@ class AddCommentView(CreateView):
         return super().form_valid(form)
 
     success_url = reverse_lazy('home')
-
-
 
 
 class UpdatePostView(UpdateView):
